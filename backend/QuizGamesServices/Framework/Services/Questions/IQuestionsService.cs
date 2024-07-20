@@ -1,14 +1,15 @@
 ﻿using Framework.Entity;
+using Framework.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Framework.Services
+namespace Framework.Services.Questions
 {
-    public interface IAuthService
+    public interface IQuestionsService
     {
-        string GenerateToken(User user);
+        List<QuestionModel> GetAll();
     }
 }

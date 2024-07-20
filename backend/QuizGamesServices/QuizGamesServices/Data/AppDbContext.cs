@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Framework.Models;
+using Framework.Entity;
 namespace QuizGamesServices.Data
 {
     public class AppDbContext : DbContext

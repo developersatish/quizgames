@@ -1,0 +1,74 @@
+[
+  {
+    "QID": "TST001",
+    "Question": "Which among these was a son of the Mughal ruler Akbar?",
+    "Answer": "B",
+    "A": "Humayun",
+    "B": "Jahangir",
+    "C": "Shah Jahan",
+    "D": "Aurangzeb"
+  },
+  {
+    "QID": "TST002",
+    "Question": "If you were in the city of Cape Town which country are you visiting?",
+    "Answer": "A",
+    "A": "South Africa",
+    "B": "Zimbabwe",
+    "C": "Zambia",
+    "D": "Namibia"
+  },
+  {
+    "QID": "TST003",
+    "Question": "Which artist painted the Mona Lisa?",
+    "Answer": "C",
+    "A": "Claude Monet",
+    "B": "MF Husain",
+    "C": "Leonardo Da Vinci",
+    "D": "Michelangelo"
+  },
+  {
+    "QID": "TST004",
+    "Question": "At what temperature (in Celcius) does water boil?",
+    "Answer": "B",
+    "A": "150",
+    "B": "100",
+    "C": "50",
+    "D": "200"
+  },
+  {
+    "QID": "TST005",
+    "Question": "The young one of an elephant is known by what name?",
+    "Answer": "C",
+    "A": "Jack",
+    "B": "Kitten",
+    "C": "Calf",
+    "D": "Cub"
+  },
+  {
+    "QID": "TST006",
+    "Question": "Fajr, Dhuhr, Asr, Maghrib, and Isha are the five types of what?",
+    "Answer": "C",
+    "A": "Seasons",
+    "B": "Namaz",
+    "C": "Mosques",
+    "D": "Religious Books"
+  },
+  {
+    "QID": "TST007",
+    "Question": "What word traces its root to Greek and means \u201cstudy of the true sense of the word\u201d?",
+    "Answer": "A",
+    "A": "Etymology",
+    "B": "Dictionary",
+    "C": "Thesaurus",
+    "D": "Lexicon"
+  },
+  {
+    "QID": "TST008",
+    "Question": "Which person is one of only two people to be awarded a Nobel Prize and an Oscar?",
+    "Answer": "A",
+    "A": "George Bernard Shaw",
+    "B": "JRR Tolkien",
+    "C": "Margaret Mitchell",
+    "D": "Ernest Hemingway"
+  }
+]

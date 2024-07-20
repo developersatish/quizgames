@@ -1,10 +1,13 @@
 
 using Framework.Services;
+using Framework.Services.Questions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using QuizGamesServices.Data;
 using System.Text;
+using System.Threading.RateLimiting;
 
 namespace QuizGamesServices
 {
@@ -14,11 +17,25 @@ namespace QuizGamesServices
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "MyCors",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("https://localhost:7036",
+                                                          "http://localhost:7036",
+                                                          "https://red-stone-02e648110.5.azurestaticapps.net");
+                                      policy.AllowAnyMethod();
+                                      policy.AllowAnyHeader();
+                                  });
+            });
+
             // Add services to the container.
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<IAuthService,AuthService>();
+            builder.Services.AddScoped<IQuestionsService, QuestionsService>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -39,6 +56,16 @@ namespace QuizGamesServices
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddRateLimiter(_ => _
+                                                .AddFixedWindowLimiter(policyName: "fixed", options =>
+                                                {
+                                                    options.PermitLimit = 5;
+                                                    options.Window = TimeSpan.FromSeconds(15);
+                                                    options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                                                    options.QueueLimit = 10;
+                                                }));
+
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -46,7 +73,7 @@ namespace QuizGamesServices
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCors("MyCors");
             app.UseHttpsRedirection();
 
             app.UseAuthentication();

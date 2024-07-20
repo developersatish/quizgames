@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace Framework.Models
 {
-    public class User
+    public class QuizSubmitModel
     {
+        [Required]
         public int Id { get; set; }
         [Required]
-        public string Username { get; set; }
-        [Required]
-        public string Phone { get; set; }
-        [Required]
-        public string PasswordHash { get; set; }
+        public uint Score { get; set; }
     }
 }
