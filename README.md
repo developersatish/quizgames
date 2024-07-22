@@ -1,5 +1,3 @@
-# Monk Media Assessment July 2024
-
 ## Requirement
 Full stack development for Quiz application
 
