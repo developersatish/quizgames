@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllQuestion, Question, Score, submitScore } from '../services/questionsService';
+import { getAllQuestion, Question, Score, SelectedAnswer, submitScore } from '../services/questionsService';
 import { Card, Button, Form, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../components/auth/useAuth';
@@ -13,7 +13,7 @@ const Quiz = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
+    const [correctAnswers, setCorrectAnswers] = useState<SelectedAnswer[]>([]);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
     const [timeLeft, setTimeLeft] = useState<number>(60);
     const [timeout, setTimeoutState] = useState<boolean>(false);
@@ -62,12 +62,12 @@ const Quiz = () => {
         const user = getUser();
         const score: Score = {
             id: +user.id,
-            score: correctAnswers.length
+            selectedAsnsers: correctAnswers
         }
         try {
-            setTimeoutState(false);
-            setSubmitResult(true);
             await submitScore(score);
+            setTimeoutState(false);
+            summery();
         } catch (error) {
             setError('Failed to fetch data.');
         }
@@ -79,16 +79,18 @@ const Quiz = () => {
         setQuestionAttempted(questionAttempted + 1);
         const isCorrect = selected === questions[currentQuestionIndex].Answer;
         setIsAnswerCorrect(isCorrect);
-
-        if (isCorrect) {
-            setCorrectAnswers([...correctAnswers, questions[currentQuestionIndex].QID]);
+        const ans: SelectedAnswer = {
+            SelectedQid: questions[currentQuestionIndex].Answer,
+            QID: questions[currentQuestionIndex].QID,
+            IsCorrect: isCorrect
         }
+        setCorrectAnswers([...correctAnswers, ans]);
     };
     const home = () => {
         navigate('/');
     }
-    const leaderboard = () => {
-        navigate('/leaderboard');
+    const summery = () => {
+        navigate('summery');
     }
     const currentQuestion = questions[currentQuestionIndex];
 
@@ -101,7 +103,7 @@ const Quiz = () => {
                 <Card>
                     <Card.Body>
                         {submitResult ?
-                            (<Alert variant="success"> Your Score {correctAnswers.length}/{questions.length}<Alert.Link href="#" onClick={leaderboard}><br />Go to leaderboard</Alert.Link></Alert>)
+                            (<Alert variant="success"> Your Score {correctAnswers.length}/{questions.length}<Alert.Link href="#" onClick={summery}><br />Go to leaderboard</Alert.Link></Alert>)
                             : timeout ? (
                                 <Alert variant="danger">Timeout! You missed it ! click to go back <Alert.Link href="#" onClick={home} >Home</Alert.Link></Alert>
                             ) : (<>

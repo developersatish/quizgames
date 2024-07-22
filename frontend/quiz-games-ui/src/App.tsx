@@ -8,10 +8,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import './App.css'; // Import custom CSS
 import LeaderBoard from './pages/leaderboard';
 import QuizNavigate from './components/auth/nav';
+import QuizSummery from './pages/quizsummery';
 
 const App = () => {
-
-
   return (
     <>
       <QuizNavigate />
@@ -25,6 +24,7 @@ const App = () => {
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/quiz" element={<Quiz />} />
+                  <Route path="/quiz/summery" element={<QuizSummery />} />
                   <Route path="/leaderboard" element={<LeaderBoard />} />
                 </Routes>
               </Router>

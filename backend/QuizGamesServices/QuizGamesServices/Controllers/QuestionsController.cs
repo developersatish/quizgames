@@ -33,12 +33,20 @@ namespace QuizGamesServices.Controllers
             }
         }
 
-        //// GET api/<QuestionsController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        // GET api/<QuestionsController>/5
+        [HttpGet("{id}")]
+        public async Task<List<QuestionModel>> Get(int id)
+        {
+            try
+            {
+                return await _service.GetUserSummery(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         //// POST api/<QuestionsController>
         //[HttpPost]

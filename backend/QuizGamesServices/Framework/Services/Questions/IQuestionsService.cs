@@ -11,5 +11,10 @@ namespace Framework.Services.Questions
     public interface IQuestionsService
     {
         List<QuestionModel> GetAll();
+        Task<LeaderboardModel> GetLeaderbords(int userid);
+
+        Task<bool> SubmitQuestion(QuizSubmitModel model);
+
+        Task<List<QuestionModel>> GetUserSummery(int id);
     }
 }

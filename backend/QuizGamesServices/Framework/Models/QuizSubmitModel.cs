@@ -11,7 +11,13 @@ namespace Framework.Models
     {
         [Required]
         public int Id { get; set; }
-        [Required]
-        public uint Score { get; set; }
+        public List<SelectedAnswer> SelectedAsnsers { get; set; }
+    }
+
+    public class SelectedAnswer
+    {
+        public string QID { get; set; }
+        public string SelectedQid { get; set; }
+        public bool IsCorrect { get; set; }
     }
 }

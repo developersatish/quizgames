@@ -1,5 +1,6 @@
 ﻿using Framework.Entity;
 using Framework.Models;
+using Framework.Services.Questions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,11 @@ namespace QuizGamesServices.Controllers
     [ApiController]
     public class QuizController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        public QuizController(AppDbContext context)
+
+        private readonly IQuestionsService _service;
+        public QuizController(IQuestionsService service)
         {
-            _context = context;
+            _service = service;
         }
         // POST api/<QuestionsController>
         [HttpPost]
@@ -30,12 +32,7 @@ namespace QuizGamesServices.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == model.Id);
-                if (user == null) { return BadRequest("Username already exists"); }
-
-                user.Score = model.Score;
-
-                await _context.SaveChangesAsync();
+                var user = await _service.SubmitQuestion(model);
 
                 return Ok(new { user });
             }
@@ -46,25 +43,13 @@ namespace QuizGamesServices.Controllers
             }
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Get()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
 
-                var users = await _context.Users.Where(x => x.Score > 0).OrderByDescending(x => x.Score)
-                                                 .Take(10)
-                                                 .Select(x => new UserModel
-                                                 {
-                                                     Id = x.Id,
-                                                     Username = x.Username,
-                                                     Score = x.Score
-                                                 })
-                                                 .ToListAsync();
-
-
-
+               var users= await _service.GetLeaderbords(id);
                 return Ok(new { users });
             }
             catch (Exception ex)

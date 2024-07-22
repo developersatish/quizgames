@@ -14,7 +14,7 @@ interface LoginUser {
 const setAuthToken = (user: LoginUser | null): void => {
     if (user && user.token) {
         localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', user.token);
+        localStorage.setItem('token',JSON.stringify(user.token));
         apiClient.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
     } else {
         delete apiClient.defaults.headers.common['Authorization'];

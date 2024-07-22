@@ -29,5 +29,8 @@ namespace Framework.Models
 
         [JsonPropertyName("D")]
         public string D { get; set; }
+
+        [JsonPropertyName("IsCorrect")]
+        public bool IsCorrect { get; set; }
     }
 }

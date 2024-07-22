@@ -18,7 +18,7 @@ const QuizNavigate = () => {
     return (
         <Navbar className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href='/'>Quiz Game</Navbar.Brand>
+                <Navbar.Brand href='/'>Quiz Game / Home</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>{!loggedIn ? (<> <Nav.Link href="/login">Login</Nav.Link>

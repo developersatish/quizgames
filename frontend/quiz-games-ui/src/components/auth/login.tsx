@@ -30,6 +30,7 @@ const Login = () => {
     return (
         <Row className="border p-4 bg-light shadow rounded">
             <Col className="mx-auto">
+                <h2 className="text-center mb-4">Login</h2>
                 <Form onSubmit={handleSubmit} >
                     <Form.Group controlId="formUsername" className="mb-3">
                         <Form.Label>Username</Form.Label>

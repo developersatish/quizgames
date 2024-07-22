@@ -9,14 +9,27 @@ export interface Question {
     B: string;
     C: string;
     D: string;
+    IsCorrect: boolean;
+}
+
+export interface SelectedAnswer {
+    QID: string;
+    SelectedQid: string;
+    IsCorrect: boolean;
 }
 
 export interface Score {
     id: number,
-    score: number
+    selectedAsnsers: SelectedAnswer[]
 }
-export interface TopUsers extends Score {
-    username: string
+
+export interface TopUsers {
+    yourRank: number,
+    topUsers: {
+        username: string,
+        score: number
+    }
+
 }
 
 const getAllQuestion = async (): Promise<any> => {
@@ -29,9 +42,14 @@ const submitScore = async (score: Score): Promise<any> => {
     return response.data;
 };
 
-const getTopUsers = async (): Promise<any> => {
-    const response = await apiClient.get('/quiz');
+const getTopUsers = async (id: number): Promise<any> => {
+    const response = await apiRequest.get(`/quiz/${id}`);
     return response.data;
 };
 
-export { getAllQuestion, submitScore, getTopUsers };
+const getQuestionSummery = async (id: number): Promise<any> => {
+    const response = await apiRequest.get(`/questions/${id}`);
+    return response.data;
+};
+
+export { getAllQuestion, submitScore, getTopUsers, getQuestionSummery };

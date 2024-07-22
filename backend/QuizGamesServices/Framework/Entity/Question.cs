@@ -7,19 +7,23 @@ using System.Threading.Tasks;
 
 namespace Framework.Entity
 {
-    public class Question
+    public class UserQuestionAnswer
     {
-        public int Id { get; set; }
         [Required]
-        public string Text { get; set; }
-        public List<Option> Options { get; set; }
-    }
+        public int Id { get; set; }
 
-    public class Option
-    {
-        public int Id { get; set; }
         [Required]
-        public string Text { get; set; }
+        public int UserId { get; set; }
+
+        [Required]
+        public string Qid { get; set; }
+
+        [Required]
+        public string SelectedQid { get; set; }
+
+        [Required]
         public bool IsCorrect { get; set; }
+
+        public DateTime Date { get; set; }= DateTime.UtcNow;
     }
 }
