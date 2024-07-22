@@ -26,8 +26,9 @@ namespace QuizGamesServices.Controllers
         }
 
         [HttpPost("signup")]
-        public async Task<UserResponse> SignUp([FromBody] SignUpModel user)
+        public async Task<ApiResponse<UserResponse>> SignUp([FromBody] SignUpModel user)
         {
+            ApiResponse<UserResponse> response = new ApiResponse<UserResponse>();
             try
             {
                 if (!ModelState.IsValid)
@@ -36,8 +37,9 @@ namespace QuizGamesServices.Controllers
                 }
 
                 var userEntity = await _authService.SignUp(user);
-                var token =  _authService.GenerateToken(userEntity);
-                return new UserResponse()
+                var token = _authService.GenerateToken(userEntity);
+                response.Data =
+                new UserResponse()
                 {
                     Id = userEntity.Id,
                     Token = token,
@@ -46,14 +48,17 @@ namespace QuizGamesServices.Controllers
             catch (Exception ex)
             {
 
-                throw ex.InnerException;
+                response.Success = false;
+                response.Message = ex.Message;
             }
+            return response;
 
         }
 
         [HttpPost("login")]
-        public async Task<UserResponse> Login([FromBody] LoginModel login)
+        public async Task<ApiResponse<UserResponse>> Login([FromBody] LoginModel login)
         {
+            ApiResponse<UserResponse> response = new ApiResponse<UserResponse>();
             try
             {
                 if (!ModelState.IsValid)
@@ -63,18 +68,22 @@ namespace QuizGamesServices.Controllers
                 var user = await _authService.Login(login);
 
                 var token = _authService.GenerateToken(user);
-                return new UserResponse()
-                {
-                    Id = user.Id,
-                    Token = token,
-                };
+                response.Data =
+                 new UserResponse()
+                 {
+                     Id = user.Id,
+                     Token = token,
+                 };
             }
             catch (Exception ex)
             {
 
-                throw ex.InnerException;
+                response.Success = false;
+                response.Message = ex.Message;
             }
+            return response;
 
         }
+
     }
 }

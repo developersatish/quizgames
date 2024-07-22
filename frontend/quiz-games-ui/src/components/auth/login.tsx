@@ -18,9 +18,15 @@ const Login = () => {
             setLoading(true);
             const values = { username, password };
             const user = await login(values);
-            setAuthToken(user);
-            setLoading(false);
-            window.location.href = '/';
+            if (user.success) {
+                setAuthToken(user.data);
+                setLoading(false);
+                window.location.href = '/';
+            } else {
+                setErrMsg(user.message);
+                setLoading(false);
+            }            
+
         } catch (error: any) {
             setErrMsg(error?.response?.data);
             setLoading(false);

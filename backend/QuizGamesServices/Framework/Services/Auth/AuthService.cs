@@ -49,6 +49,9 @@ namespace Framework.Services.Auth
         public async Task<User> Login(LoginModel login)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == login.Username);
+            if (user == null) {
+                throw new Exception("User not found!");
+            }
 
             if (user == null || !Password.VerifyPassword(login.Password, user.PasswordHash, user.Key))
                 throw new Exception("Invalid credentials");

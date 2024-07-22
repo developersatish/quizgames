@@ -3,3 +3,7 @@ backend/QuizGamesServices/Framework/bin/
 backend/QuizGamesServices/Framework/obj/
 backend/QuizGamesServices/QuizGamesServices/bin/
 backend/QuizGamesServices/QuizGamesServices/obj/
+frontend/quiz-games-ui/build.zip
+backend/QuizGamesServices/QuizGamesServices/aws-lambda-tools-defaults.json
+backend/QuizGamesServices/QuizGamesServices/.config/
+backend/QuizGamesServices/QuizGamesServices/Properties/

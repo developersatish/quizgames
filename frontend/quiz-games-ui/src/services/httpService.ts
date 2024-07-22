@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
+import { BASE_URL } from '../constant';
 
 const apiClient: AxiosInstance = axios.create({
-    baseURL: 'https://localhost:7021/api', // Replace with your API base URL
+    baseURL: BASE_URL, // Replace with your API base URL
     headers: {
         'Content-Type': 'application/json'
     }
@@ -14,7 +15,7 @@ interface LoginUser {
 const setAuthToken = (user: LoginUser | null): void => {
     if (user && user.token) {
         localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token',JSON.stringify(user.token));
+        localStorage.setItem('token', JSON.stringify(user.token));
         apiClient.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
     } else {
         delete apiClient.defaults.headers.common['Authorization'];

@@ -17,7 +17,6 @@ const QuizSummery = () => {
             try {
                 const user = getUser();
                 const result = await getQuestionSummery(+user.id);
-                console.log(result);
                 setQuestionsSummery(result);
             } catch (error) {
                 setError('Failed to fetch data.');
