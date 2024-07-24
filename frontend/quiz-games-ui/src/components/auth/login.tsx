@@ -21,7 +21,7 @@ const Login = () => {
             if (user.success) {
                 setAuthToken(user.data);
                 setLoading(false);
-                window.location.href = '/';
+                navigate('/');
             } else {
                 setErrMsg(user.message);
                 setLoading(false);
