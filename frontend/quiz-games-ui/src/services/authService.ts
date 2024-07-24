@@ -16,9 +16,9 @@ const signup = async (user: UserData): Promise<any> => {
     return response.data;
 };
 
-const login = async (credentials: LoginData): Promise<any> => {
+const userlogin = async (credentials: LoginData): Promise<any> => {
     const response = await apiClient.post('/auth/login', credentials);
     return response.data;
 };
 
-export { signup, login };
+export { signup, userlogin };

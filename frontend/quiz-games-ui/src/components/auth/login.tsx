@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
-import { login } from '../../services/authService';
+import { userlogin } from '../../services/authService';
 import { setAuthToken } from '../../services/httpService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [errMsg, setErrMsg] = useState('');
+    const { login } = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -17,15 +18,16 @@ const Login = () => {
         try {
             setLoading(true);
             const values = { username, password };
-            const user = await login(values);
+            const user = await userlogin(values);
             if (user.success) {
                 setAuthToken(user.data);
                 setLoading(false);
+                login();
                 navigate('/');
             } else {
                 setErrMsg(user.message);
                 setLoading(false);
-            }            
+            }
 
         } catch (error: any) {
             setErrMsg(error?.response?.data);

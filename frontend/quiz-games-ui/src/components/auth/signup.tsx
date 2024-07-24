@@ -3,6 +3,7 @@ import { Row, Col, Button, Form, Alert } from 'react-bootstrap';
 import { setAuthToken } from '../../services/httpService';
 import { signup } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Signup: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -10,7 +11,8 @@ const Signup: React.FC = () => {
     const [password, setPassword] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [errMsg, setErrMsg] = useState('');
-
+    const { login } = useAuth();
+    const navigate = useNavigate();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -20,7 +22,8 @@ const Signup: React.FC = () => {
             if (user.success) {
                 setAuthToken(user.data);
                 setLoading(false);
-                window.location.href = '/';
+                login();
+                navigate('/');
             } else {
                 setErrMsg(user.message);
                 setLoading(false);

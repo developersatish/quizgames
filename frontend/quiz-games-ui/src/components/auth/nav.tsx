@@ -1,18 +1,11 @@
-
 import { useEffect, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { isLoggedIn, logout } from '../../services/httpService';
+import { useAuth } from '../../context/AuthContext';
 
 const QuizNavigate = () => {
-    const [loggedIn, setLoggedIn] = useState<boolean>(isLoggedIn());
-
-    useEffect(() => {
-        setLoggedIn(isLoggedIn());
-    }, []);
-
+    const { loggedIn, logout } = useAuth();
     const logoutClick = () => {
         logout();
-        setLoggedIn(false);
     };
 
     return (
@@ -21,8 +14,15 @@ const QuizNavigate = () => {
                 <Navbar.Brand href='/'>Quiz Game / Home</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <Nav>{!loggedIn ? (<> <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/signup">Signup</Nav.Link></>) : <Nav.Link onClick={logoutClick}>Logout</Nav.Link>}
+                    <Nav>
+                        {!loggedIn ? (
+                            <>
+                                <Nav.Link href="/login">Login</Nav.Link>
+                                <Nav.Link href="/signup">Signup</Nav.Link>
+                            </>
+                        ) : (
+                            <Nav.Link onClick={logoutClick}>Logout</Nav.Link>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

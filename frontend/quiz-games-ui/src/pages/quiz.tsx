@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { getAllQuestion, Question, Score, SelectedAnswer, submitScore } from '../services/questionsService';
 import { Card, Button, Form, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../components/auth/useAuth';
 import { getUser } from '../services/httpService';
 
 const Quiz = () => {
-    useAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);

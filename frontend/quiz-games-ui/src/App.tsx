@@ -9,30 +9,32 @@ import './App.css'; // Import custom CSS
 import LeaderBoard from './pages/leaderboard';
 import QuizNavigate from './components/auth/nav';
 import QuizSummery from './pages/quizsummery';
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoute from './context/LoginRoute';
 
 const App = () => {
   return (
-    <>
-      <QuizNavigate />
-      <Container fluid className="d-flex vh-100 container-centered">
-        <Row className="m-auto">
-          <Col>
-            <div className="content">
-              <Router>
+    <AuthProvider>
+      <Router>
+        <QuizNavigate />
+        <Container fluid className="d-flex vh-100 container-centered">
+          <Row className="m-auto">
+            <Col>
+              <div className="content">
                 <Routes>
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
-                  <Route path="/quiz" element={<Quiz />} />
-                  <Route path="/quiz/summery" element={<QuizSummery />} />
-                  <Route path="/leaderboard" element={<LeaderBoard />} />
+                  <Route path="/quiz" element={<PrivateRoute element={<Quiz />} />} />
+                  <Route path="/quiz/summery" element={<PrivateRoute element={<QuizSummery />} />} />
+                  <Route path="/leaderboard" element={<PrivateRoute element={<LeaderBoard />} />} />
                 </Routes>
-              </Router>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </Router>
+    </AuthProvider>
   );
 };
 

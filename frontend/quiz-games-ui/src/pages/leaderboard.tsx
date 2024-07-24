@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Badge, Button, Col, ListGroup, Row, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../components/auth/useAuth';
 import { getTopUsers, TopUsers } from '../services/questionsService';
 import { getUser } from '../services/httpService';
 
 const LeaderBoard = () => {
-    useAuth();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [topUsers, setTopUsers] = useState<TopUsers>();

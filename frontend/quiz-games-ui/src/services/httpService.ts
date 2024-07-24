@@ -39,11 +39,11 @@ const getUser = (): LoginUser => {
     return loginUser;
 };
 
-const logout = (): void => {
+const logoutUser = (): void => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     setAuthToken(null);
     window.location.reload();
 };
 
-export { apiClient, setAuthToken, isLoggedIn, logout, getUser };
+export { apiClient, setAuthToken, isLoggedIn, logoutUser, getUser };

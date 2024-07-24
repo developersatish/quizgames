@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { getQuestionSummery, Question } from '../services/questionsService';
 import { Badge, Button, Card, Container, ListGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../components/auth/useAuth';
 import { getUser } from '../services/httpService';
 
 const QuizSummery = () => {
-    useAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
